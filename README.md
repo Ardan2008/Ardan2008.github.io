@@ -12,5 +12,5 @@
 Feel free to reach out via email , instagram, or connect on LinkedIn.  
 - **Email:** ramadhanardan69@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/ardan-ramadhan-putra-hidayat-5a12a537b/
-- **Instagram:** xrdsn404
-- **GitHub:** Ardan2008
+- **Instagram:** https://www.instagram.com/xrdsn404?igsh=MWszbnR4eXk5dHF6NQ==
+- **GitHub:** https://github.com/Ardan2008
