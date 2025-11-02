@@ -3,438 +3,453 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArdanDev.</title>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Icon & Fonts -->
   <link rel="icon" type="image/png" href="image/lg.png" />
-
-  <!-- Bootstrap Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-    crossorigin="anonymous" />
-
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-
-  <!-- Swiper JS -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@lenis/core@1.0.23/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
-    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <title>ArdanDev.</title>
 </head>
-<body>
-  <div class="overlay"></div>
-  <div class="cursor"></div>
 
-  <br>
-  <!-- Navigation -->
-  <nav>
-    <div class="logoo">
-      <a href="#home" style="text-decoration: none;">
-        <img src="image/lg.png" class="image" alt="ArdanDev Logo" />
-        <span style="color: black;">Ardan</span><span class="Dev">Dev.</span>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <canvas id="bgCanvas"></canvas>
+    <div class="grid-lines"></div>
+  </div>
+
+  <div class="cursor"></div>
+  <div class="overlay"></div>
+  <div class="scrolled"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="#home">
+        <img src="image/lg.png" alt="Logo" />
+        <span>Ardan<span class="dev">Dev.</span></span>
       </a>
     </div>
+
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#education">Education</a>
       <a href="#service">Service</a>
       <a href="#skill">Skill</a>
+      <a href="#project">Project</a>
     </div>
-    <div class="burger" aria-label="Toggle navigation" role="button" tabindex="0">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+
+    <div class="burger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </nav>
 
   <main>
+    <br><br>
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
-      <div class="hero-content">
-        <h1 style="color: black">
-          <span>Hi, I'm</span><br>
-          <strong>Ardan Ramadhan <br>
-          Putra Hidayat<br></strong>
-          <span class="typing" id="typing">Junior Web Developer</span>
-        </h1>
-        <hr class="neon-line" />
-        <h3>
-          <p>
-            I craft immersive digital experiences using the latest web technologies — transforming bold ideas into interactive realities that engage and inspire.
-          </p>
-        </h3>
+    <section class="hero" id="home" data-aos="fade-up">
+      <div class="hero-content" data-aos="fade-right" data-aos-delay="200">
+        <h1>Hi, I'm <strong>Ardan Ramadhan<br>Putra Hidayat</strong></h1>
+        <p class="typing" id="typing"></p>
+        <p class="desc">
+          Crafting modern, interactive, and high-performance web experiences with passion and precision.
+        </p>
 
-        <!-- Social Icons -->
-        <div class="container">
-          <div class="icon instagram">
-            <div class="tooltip">Instagram</div>
-            <span>
-              <a href="https://www.instagram.com/xrdsn404?igsh=MWszbnR4eXk5dHF6NQ==" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-            </span>
+        <div class="hero-actions">
+          <div class="social-icons" data-aos="fade-up" data-aos-delay="400">
+            <a href="https://instagram.com/xrdsn404" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com/@yoo_selen" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://github.com/Ardan2008" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://wa.me/6288217934130" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://linkedin.com/in/ardan-ramadhan-5a12a537b" target="_blank"><i class="fab fa-linkedin"></i></a>
           </div>
-          <div class="icon tiktok">
-            <div class="tooltip">TikTok</div>
-            <span>
-              <a href="https://www.tiktok.com/@yoo_selen?_t=ZS-8yUN6GOFctW&_r=1" target="_blank">
-                <i class="fa-brands fa-tiktok"></i>
-              </a>
-            </span>
-          </div>
-          <div class="icon github">
-            <div class="tooltip">GitHub</div>
-            <span>
-              <a href="https://github.com/Ardan2008" target="_blank">
-                <i class="fa-brands fa-github"></i>
-              </a>
-            </span>
-          </div>
-          <div class="icon whatsapp">
-            <div class="tooltip">Whatsapp</div>
-            <span>
-              <a href="https://api.whatsapp.com/send?phone=6288217934130" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i>
-              </a>
-            </span>
-          </div>
-          <div class="icon linkedin">
-            <div class="tooltip">LinkedIn</div>
-            <span>
-              <a href="https://www.linkedin.com/in/ardan-ramadhan-5a12a537b/" target="_blank">
-                <i class="fa-brands fa-linkedin"></i>
-              </a>
-            </span>
-          </div>
+
+          <a href="image/CV_Ardan_Ramadhan_Putra_Hidayat.pdf" class="btn-primary" download data-aos="zoom-in" data-aos-delay="600">
+            Download CV
+          </a>
         </div>
-
-        <br><br><br>
-        <h2><a href="image/CV Ardan.pdf" class="cta-button">Download CV</a></h2>
       </div>
 
-      <div class="profile-container">
-        <img src="image/Ardan.jpg" alt="Profile Picture" class="profile-pic" />
+      <div class="hero-img" data-aos="fade-left" data-aos-delay="300">
+        <div class="img-wrapper">
+          <img src="image/Ardan.jpg" alt="Ardan" />
+        </div>
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
-      <div class="about-img">
-        <img src="image/ar.jpg" alt="About Me" class="img" />
-      </div>
-      <div class="about-text">
-        <h2 class="title">About<span>Me</span></h2>
-        <h4 style="color: #56cfe1;">Junior Web Developer</h4>
-        <p>
-          "Hello! 👋 I’m a Junior Web Developer from Pasuruan, currently studying Rekayasa Perangkat Lunak at SMKN 1 Purwosari. I’m passionate about creating modern, interactive, and highly functional websites."
-        </p>
-        <div class="about-content">
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="bi bi-chevron-right"></i><strong>Name :</strong> <span>Ardan Ramadhan Putra Hidayat</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>website :</strong> <span>Ardan2008.github.io</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>City :</strong> <span>Purwosari, Pasuruan - East Java</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>Born :</strong> <span>September 22, 2008</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>Age :</strong> <span>17 years</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>Status :</strong> <span>Student</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>Hobby :</strong> <span>Badminton</span></li>
-              <li><i class="bi bi-chevron-right"></i><strong>E-mail :</strong> <span>ramadhanardan69@gmail.com</span></li>
-            </ul>
-          </div>
+    <section class="about" id="about" data-aos="fade-up">
+      <div class="container">
+        <div class="about-img" data-aos="fade-right" data-aos-delay="100">
+          <img src="image/ar.jpg" alt="About Me" />
+        </div>
+
+        <div class="about-text" data-aos="fade-left" data-aos-delay="200">
+          <h2>About <span>Me</span></h2>
+          <h4 class="title-animated">
+            <strong>Junior Web Developer</strong>
+            <span class="animated-underline"></span>
+          </h4>
+          <p>
+            Hello! I'm a passionate Junior Web Developer from Pasuruan, studying Software Engineering
+            at SMKN 1 Purwosari. I love building modern, responsive, and user-friendly websites.
+          </p>
+          <ul>
+            <li><strong>Name:</strong> Ardan Ramadhan Putra Hidayat</li>
+            <li><strong>Age:</strong> 17 years</li>
+            <li><strong>City:</strong> Purwosari, Pasuruan-East Java</li>
+            <li><strong>Born:</strong> September 22, 2008</li>
+            <li><strong>Email:</strong> ramadhanardan69@gmail.com</li>
+            <li><strong>Status:</strong> Student</li>
+            <li><strong>Hobby:</strong> Badminton</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Swiper Section (Skills / Social Media) -->
-    <div class="container-fluid py-4">
-      <hr class="neon-hr">
+    <!-- Skill Icons Swiper -->
+    <div class="skills-swiper" data-aos="fade-up">
       <div class="swiper mySwiper">
-        <div class="swiper-wrapper align-items-center">
-
-          <!-- HTML -->
-          <div class="swiper-slide"><img src="image/html.png" alt="HTML" class="swiper-logo" /></div>
-          <!-- CSS -->
-          <div class="swiper-slide"><img src="image/css.png" alt="CSS" class="swiper-logo" /></div>
-          <!-- JavaScript -->
-          <div class="swiper-slide"><img src="image/javascript.png" alt="JavaScript" class="swiper-logo" /></div>
-          <!-- Mysql -->
-          <div class="swiper-slide"><img src="image/mysql.png" alt="Mysql" class="swiper-logo" /></div>
-          <!-- Figma -->
-          <div class="swiper-slide"><img src="image/figma.png" alt="Figma" class="swiper-logo" /></div>
-          <!-- PHP -->
-          <div class="swiper-slide"><img src="image/php.png" alt="PHP" class="swiper-logo" /></div>
-          <!-- GitHub -->
-          <div class="swiper-slide"><img src="image/github.png" alt="GitHub" class="swiper-logo" /></div>
-          <!-- Laravel -->
-          <div class="swiper-slide"><img src="image/laravel.png" alt="Laravel" class="swiper-logo" /></div>
-          <!-- Tailwind -->
-          <div class="swiper-slide"><img src="image/tailwind.png" alt="Tailwind" class="swiper-logo" /></div>
-          <!-- Canva -->
-          <div class="swiper-slide"><img src="image/canva.png" alt="Canva" class="swiper-logo" /></div>
-          <!-- React -->
-          <div class="swiper-slide"><img src="image/react.png" alt="React" class="swiper-logo" /></div>
-          
-          <!-- HTML -->
-          <div class="swiper-slide"><img src="image/html.png" alt="HTML" class="swiper-logo" /></div>
-          <!-- CSS -->
-          <div class="swiper-slide"><img src="image/css.png" alt="CSS" class="swiper-logo" /></div>
-          <!-- JavaScript -->
-          <div class="swiper-slide"><img src="image/javascript.png" alt="JavaScript" class="swiper-logo" /></div>
-          <!-- Mysql -->
-          <div class="swiper-slide"><img src="image/mysql.png" alt="Mysql" class="swiper-logo" /></div>
-          <!-- Figma -->
-          <div class="swiper-slide"><img src="image/figma.png" alt="Figma" class="swiper-logo" /></div>
-          <!-- PHP -->
-          <div class="swiper-slide"><img src="image/php.png" alt="PHP" class="swiper-logo" /></div>
-          <!-- GitHub -->
-          <div class="swiper-slide"><img src="image/github.png" alt="GitHub" class="swiper-logo" /></div>
-          <!-- Laravel -->
-          <div class="swiper-slide"><img src="image/laravel.png" alt="Laravel" class="swiper-logo" /></div>
-          <!-- Tailwind -->
-          <div class="swiper-slide"><img src="image/tailwind.png" alt="Tailwind" class="swiper-logo" /></div>
-          <!-- Canva -->
-          <div class="swiper-slide"><img src="image/canva.png" alt="Canva" class="swiper-logo" /></div>
-          <!-- React -->
-          <div class="swiper-slide"><img src="image/react.png" alt="React" class="swiper-logo" /></div>
-
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="image/html.png" alt="HTML"></div>
+          <div class="swiper-slide"><img src="image/css.png" alt="CSS"></div>
+          <div class="swiper-slide"><img src="image/javascript.png" alt="JavaScript"></div>
+          <div class="swiper-slide"><img src="image/php.png" alt="PHP"></div>
+          <div class="swiper-slide"><img src="image/laravel.png" alt="Laravel"></div>
+          <div class="swiper-slide"><img src="image/react.png" alt="React"></div>
+          <div class="swiper-slide"><img src="image/tailwind.png" alt="Tailwind"></div>
+          <div class="swiper-slide"><img src="image/mysql.png" alt="MySQL"></div>
+          <div class="swiper-slide"><img src="image/figma.png" alt="Figma"></div>
+          <div class="swiper-slide"><img src="image/github.png" alt="GitHub"></div>
+          <div class="swiper-slide"><img src="image/canva.png" alt="Canva"></div>
+          <div class="swiper-slide"><img src="image/c++.png" alt="C++"></div>
         </div>
       </div>
     </div>
 
-    <!-- Education Section -->
-    <section class="education" id="education">
-      <div class="timeline-container">
-        <h2>🎓 Education History</h2>
-        <div class="timeline-wrapper">
-          <!-- Timeline Items -->
-          <div class="timeline">
-            <div class="timeline-item">
-              <span class="dot"></span>
+    <!-- Education -->
+    <section class="education" id="education" data-aos="fade-up">
+      <div class="container">
+        <h2>Education <span>History</span></h2>
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+            <div class="dot"></div>
+            <div class="content">
               <span class="year">2013 - 2015</span>
-              <h3>TK PGRI 2 MARTOPURO</h3>
-              <p class="location"><i class="bi bi-geo-alt"></i> Location : Purwosari, Pasuruan Regency</p>
+              <h3>TK PGRI 2 Martopuro</h3>
             </div>
-            <div class="timeline-item">
-              <span class="dot"></span>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+            <div class="dot"></div>
+            <div class="content">
               <span class="year">2015 - 2021</span>
-              <h3>SDN MARTOPURO 2</h3>
-              <p class="location"><i class="bi bi-geo-alt"></i> Location : Purwosari, Pasuruan Regency</p>
+              <h3>SDN Martopuro 2</h3>
             </div>
-            <div class="timeline-item">
-              <span class="dot"></span>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+            <div class="dot"></div>
+            <div class="content">
               <span class="year">2021 - 2024</span>
-              <h3>SMP Negeri 1 Purwosari</h3>
-              <p class="location"><i class="bi bi-geo-alt"></i> Location : Purwosari, Pasuruan Regency</p>
+              <h3>SMPN 1 Purwosari</h3>
             </div>
-            <div class="timeline-item">
-              <span class="dot"></span>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
+            <div class="dot"></div>
+            <div class="content">
               <span class="year">2024 - Present</span>
-              <h3>SMK Negeri 1 Purwosari</h3>
-              <p class="major">Specialization: Rekayasa Perangkat Lunak</p>
-              <p class="location"><i class="bi bi-geo-alt"></i> Location : Purwosari, Pasuruan Regency</p>
+              <h3>SMKN 1 Purwosari</h3>
+              <p>Rekayasa Perangkat Lunak</p>
             </div>
           </div>
-          <!-- Timeline Images -->
-          <div class="timeline-images">
-            <img src="image/edu1.png" alt="Education 1" class="img1">
-            <img src="image/edu2.png" alt="Education 2" class="img2">
-            <img src="image/edu3.png" alt="Education 3" class="img3">
-          </div>
-        </div>
-      </div>
-
-      <!-- PROFILE HORIZONTAL -->
-      <div class="profile">
-        <div class="hr-profile">
-          <hr />
-          <div class="foto-hr">
-            <img src="image/lg.png" alt="Profil" />
-          </div>
-          <hr />
         </div>
       </div>
     </section>
 
-    <!-- Service Section -->
-    <section id="service" class="service-section">
-      <!-- Section Intro -->
-      <div class="container intro">
-        <div class="intro-text">
-          <h2 class="section-title">SERVICE</h2>
-          <h5>
-            I Provide<br>
-            <span>Various Digital Services</span>
-          </h5>
-          <p>Creative solutions and modern technology for your digital needs.</p>
-        </div>
-
-        <!-- Service Cards -->
-        <div class="services">
-          <!-- UI/UX Design -->
-          <div class="service-card purple">
-            <div class="icon"><i class="bi bi-brush"></i></div>
-            <h5>UI/UX Design</h5>
-            <p>
-              Designing intuitive user experiences (UX) and attractive user interfaces (UI),
-              focusing on usability, accessibility, and visual aesthetics. 
-            </p>
+    <!-- Services -->
+    <section class="service" id="service" data-aos="fade-up">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="service-grid">
+          <div class="card" data-aos="flip-left" data-aos-delay="100">
+            <i class="bi bi-brush"></i>
+            <h3>UI/UX Design</h3>
+            <p>Beautiful, intuitive, and accessible interfaces using Figma & modern design principles.</p>
           </div>
 
-          <!-- Front End Developer -->
-          <div class="service-card cyan">
-            <div class="icon"><i class="bi bi-code-slash"></i></div>
-            <h5>Front End Developer</h5>
-            <p>
-              Building responsive and interactive user interfaces using Html, CSS, JavaScript, Tailwind, Bootstrap, and React.
-              Transforming visual designs into functional interactive elements in the browser.
-            </p>
+          <div class="card" data-aos="flip-left" data-aos-delay="200">
+            <i class="bi bi-code-slash"></i>
+            <h3>Front-End Dev</h3>
+            <p>Responsive, fast, and interactive websites with HTML, CSS, JS, React, and Tailwind.</p>
           </div>
 
-          <!-- Back End Developer -->
-          <div class="service-card yellow">
-            <div class="icon"><i class="bi bi-database"></i></div>
-            <h5>Back End Developer</h5>
-            <p>
-              Developing server-side logic, APIs, and databases to ensure secure, efficient,
-              and well-integrated applications.
-            </p>
-          </div>
-
-          <!-- Web Design -->
-          <div class="service-card red">
-            <div class="icon"><i class="bi bi-window"></i></div>
-            <h5>Web Design</h5>
-            <p>
-              Creating visually appealing layouts and interactive designs for websites,
-              ensuring an intuitive user experience across all devices.
-            </p>
+          <div class="card" data-aos="flip-left" data-aos-delay="300">
+            <i class="bi bi-database"></i>
+            <h3>Back-End Dev</h3>
+            <p>Secure APIs, databases, and server logic using PHP, Laravel, and MySQL.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skill Section -->
-    <section id="skill" class="container-fluid">
-      <h3 class="skill-title">Current Skills</h3>
-      <div class="skill-container">
-        <!-- Column 1 -->
-        <div class="skill-column">
-          <div class="skill" data-tooltip="HTML : 95%">
-            <img src="image/html.png" alt="HTML" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="95%"></div></div>
+    <!-- Technical Skills -->
+    <section class="skills" id="skill" data-aos="fade-up">
+      <div class="container">
+        <h2>Technical <span>Skills</span></h2>
+        <div class="skill-bars">
+
+          <!-- Skill Item Template -->
+          <div class="skill" data-aos="slide-up" data-aos-delay="100">
+            <div class="skill-header">
+              <img src="image/html.png" alt="HTML" class="skill-icon">
+              <span class="percentage">95%</span>
+            </div>
           </div>
-          <div class="skill" data-tooltip="CSS : 90%">
-            <img src="image/css.png" alt="CSS" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="90%"></div></div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="200">
+            <div class="skill-header">
+              <img src="image/css.png" alt="CSS" class="skill-icon">
+              <span class="percentage">90%</span>
+            </div>
           </div>
-          <div class="skill" data-tooltip="JavaScript : 45%">
-            <img src="image/javascript.png" alt="JS" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="45%"></div></div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="300">
+            <div class="skill-header">
+              <img src="https://cdn.simpleicons.org/sass/CC6699" alt="SCSS" class="skill-icon">
+              <span class="percentage">85%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="400">
+            <div class="skill-header">
+              <img src="image/bootstrap.png" alt="Bootstrap" class="skill-icon">
+              <span class="percentage">80%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="500">
+            <div class="skill-header">
+              <img src="image/javascript.png" alt="JavaScript" class="skill-icon">
+              <span class="percentage">60%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="600">
+            <div class="skill-header">
+              <img src="image/php.png" alt="PHP" class="skill-icon">
+              <span class="percentage">60%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="700">
+            <div class="skill-header">
+              <img src="image/figma.png" alt="Figma" class="skill-icon">
+              <span class="percentage">55%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="800">
+            <div class="skill-header">
+              <img src="image/tailwind.png" alt="Tailwind" class="skill-icon">
+              <span class="percentage">60%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="900">
+            <div class="skill-header">
+              <img src="image/mysql.png" alt="MySQL" class="skill-icon">
+              <span class="percentage">55%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="1000">
+            <div class="skill-header">
+              <img src="image/react.png" alt="React" class="skill-icon">
+              <span class="percentage">65%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="1100">
+            <div class="skill-header">
+              <img src="image/laravel.png" alt="Laravel" class="skill-icon">
+              <span class="percentage">60%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="1200">
+            <div class="skill-header">
+              <img src="image/github.png" alt="GitHub" class="skill-icon">
+              <span class="percentage">85%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="1200">
+            <div class="skill-header">
+              <img src="image/canva.png" alt="Canva" class="skill-icon">
+              <span class="percentage">80%</span>
+            </div>
+          </div>
+
+          <div class="skill" data-aos="slide-up" data-aos-delay="1200">
+            <div class="skill-header">
+              <img src="image/c++.png" alt="C++" class="skill-icon">
+              <span class="percentage">55%</span>
+            </div>
           </div>
         </div>
-        <!-- Column 2 -->
-        <div class="skill-column">
-          <div class="skill" data-tooltip="Tailwind : 35%">
-            <img src="image/tailwind.png" alt="Tailwind" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="35%"></div></div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="project" data-aos="fade-up">
+      <div class="container">
+        <h2>My <span>Projects</span></h2>
+        <div class="project-grid">
+          <!-- 01 -->
+          <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+            <img src="image/01.png" alt="Travel">
+            <div class="info">
+              <h3>Travel Website</h3>
+              <p>HTML, CSS, JavaScript</p>
+              <div class="project-buttons">
+                <a href="https://ardan2008.github.io/The-Elegant-Travel-Website-/" target="_blank" class="btn-view">View Project</a>
+                <a href="https://github.com/Ardan2008/The-Elegant-Travel-Website-" target="_blank" class="btn-github">Source Code</a>
+              </div>
+            </div>
           </div>
-          <div class="skill" data-tooltip="Laravel : 40%">
-            <img src="image/laravel.png" alt="Laravel" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="40%"></div></div>
+
+          <!-- 02 -->
+          <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
+            <img src="image/02.png" alt="Kilas Nusantara">
+            <div class="info">
+              <h3>Kilas Nusantara</h3>
+              <p>HTML, SCSS, JavaScript</p>
+              <div class="project-buttons">
+                <a href="https://ardan2008.github.io/KilasNusantara-Web/detail.html" target="_blank" class="btn-view">View Project</a>
+                <a href="https://github.com/Ardan2008/KilasNusantara-Web" target="_blank" class="btn-github">Source Code</a>
+              </div>
+            </div>
           </div>
-          <div class="skill" data-tooltip="Bootstrap : 30%">
-            <img src="image/bootstrap.png" alt="Bootstrap" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="30%"></div></div>
+
+          <!-- 03 -->
+          <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
+            <img src="image/03.png" alt="AI-Chatbot">
+            <div class="info">
+              <h3>AI-Chatbot</h3>
+              <p>HTML (CSS dan JavaScript secara internal)</p>
+              <div class="project-buttons">
+                <a href="https://ardan2008.github.io/AI-Chatbot-API/" target="_blank" class="btn-view">View Project</a>
+                <a href="https://github.com/Ardan2008/AI-Chatbot-API" target="_blank" class="btn-github">Source Code</a>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- Column 3 -->
-        <div class="skill-column">
-          <div class="skill" data-tooltip="PHP : 50%">
-            <img src="image/php.png" alt="PHP" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="50%"></div></div>
+
+          <!-- 04 -->
+          <div class="project-card" data-aos="zoom-in" data-aos-delay="400">
+            <img src="image/04.png" alt="Finance Tracker">
+            <div class="info">
+              <h3>WebApp Finance Tracker</h3>
+              <p>HTML, Python, CSS</p>
+              <div class="project-buttons">
+                <a href="https://github.com/Ardan2008/App-Finance-Tracker" target="_blank" class="btn-github">Source Code</a>
+              </div>
+            </div>
           </div>
-          <div class="skill" data-tooltip="React : 45%">
-            <img src="image/react.png" alt="React" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="45%"></div></div>
+
+          <!-- 05 -->
+          <div class="project-card" data-aos="zoom-in" data-aos-delay="600">
+            <img src="image/05.png" alt="Yoo Coffee">
+            <div class="info">
+              <h3>Yoo Coffee</h3>
+              <p>HTML, CSS, JavaScript</p>
+              <div class="project-buttons">
+                <a href="https://ardan2008.github.io/YooCoffee/" target="_blank" class="btn-view">View Project</a>
+                <a href="https://github.com/Ardan2008/YooCoffee" target="_blank" class="btn-github">Source Code</a>
+              </div>
+            </div>
           </div>
-          <div class="skill" data-tooltip="MySQL : 48%">
-            <img src="image/mysql.png" alt="MySQL" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="48%"></div></div>
+
+          <!-- 06 -->
+          <div class="project-card" data-aos="zoom-in" data-aos-delay="600">
+            <img src="image/06.png" alt="Weather App">
+            <div class="info">
+              <h3>Weather App</h3>
+              <p>HTML, CSS, JavaScript</p>
+              <div class="project-buttons">
+                <a href="https://ardan2008.github.io/Weather-App/" target="_blank" class="btn-view">View Project</a>
+                <a href="https://github.com/Ardan2008/Weather-App" target="_blank" class="btn-github">Source Code</a>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- Column 4 -->
-        <div class="skill-column">
-          <div class="skill" data-tooltip="Figma : 38%">
-            <img src="image/figma.png" alt="Figma" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="38%"></div></div>
-          </div>
-          <div class="skill" data-tooltip="Canva : 70%">
-            <img src="image/canva.png" alt="Canva" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="70%"></div></div>
-          </div>
-          <div class="skill" data-tooltip="Github : 55%">
-            <img src="image/github.png" alt="Github" class="skill-icon">
-            <div class="skill-bar"><div class="fill" data-width="55%"></div></div>
+
+          <div class="project-more" data-aos="fade-up" data-aos-delay="700">
+            <a href="https://github.com/Ardan2008" target="_blank" class="more-link">
+              See More <i class="fas fa-arrow-right"></i>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer id="footer" class="footer">
-      <div class="footer-container">
-        <img
-          src="image/lg.png"
-          alt="Logo ArdanDev"
-          class="footer-logo"
-        />
-        <h3 class="sitename"><strong>Ardan<span class="dev">Dev</span>.</strong></h3>
-        <p class="footer-text">Find out more about my work and activities through the social media accounts below.</p>
+    <footer data-aos="fade-up">
+      <div class="container footer-container">
+        <div class="footer-top">
+          <div class="footer-logo-section">
+            <img src="image/lg.png" alt="Logo" class="footer-logo">
+            <h3>Ardan<span class="dev">Dev.</span></h3>
+          </div>
+          <p class="footer-tagline">Let's build something amazing together.</p>
+        </div>
 
-        <div class="social-links">
-          <a href="https://www.tiktok.com/@yoo_selen?_t=ZS-8yUN6GOFctW&_r=1" target="_blank">
-            <i class="bi bi-tiktok"></i>
-          </a>
-          <a href="https://api.whatsapp.com/send?phone=6288217934130" target="_blank">
-            <i class="bi bi-whatsapp"></i>
-          </a>
-          <a href="https://www.instagram.com/xrdsn404?igsh=MWszbnR4eXk5dHF6NQ==" target="_blank">
-            <i class="bi bi-instagram"></i>
-          </a>
-          <a href="https://github.com/Ardan2008" target="_blank">
-            <i class="bi bi-github"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/ardan-ramadhan-5a12a537b/" target="_blank">
-            <i class="bi bi-linkedin"></i>
-          </a>
+        <div class="footer-social">
+          <a href="https://instagram.com/xrdsn404" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@yoo_selen" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://github.com/Ardan2008" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://wa.me/6288217934130" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://linkedin.com/in/ardan-ramadhan-5a12a537b" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
 
         <div class="footer-bottom">
-          <div class="copyright">
-            &copy; <strong>Ardan<span class="dev">Dev</span>.</strong> All Rights Reserved
-          </div>
-          <div class="credits">
-            Developed by <strong>Ardan Ramadhan Putra Hidayat</strong>
-          </div>
+          <p>&copy; <span id="year">2025</span> ArdanDev. All rights reserved.</p>
+          <p class="made-with">Made with <span class="heart">♥</span> & Code</p>
         </div>
       </div>
     </footer>
-
   </main>
 
-  <!-- Custom JS -->
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 100
+    });
+
+    lenis.on('scroll', () => {
+      AOS.refresh();
+    });
+  </script>
   <script src="script.js"></script>
 </body>
 </html>

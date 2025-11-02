@@ -1,192 +1,303 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // ==================== Typing Effect ====================
-  const text = "Junior Web Developer";
-  const typingEl = document.getElementById("typing");
-  let index = 0, forward = true;
-  let lastTime = 0;
+// === BACKGROUND PARTICLES ===
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const PARTICLE_COUNT = 80;
 
-  function typeEffect(timestamp) {
-    if (!typingEl) return;
-
-    if (!lastTime) lastTime = timestamp;
-    const delta = timestamp - lastTime;
-
-    if (delta > 120) { // kecepatan mengetik
-      if (forward) {
-        typingEl.textContent = text.slice(0, index++);
-        if (index > text.length) {
-          forward = false;
-          setTimeout(() => requestAnimationFrame(typeEffect), 1000);
-          return;
-        }
-      } else {
-        typingEl.textContent = text.slice(0, index--);
-        if (index < 0) {
-          forward = true;
-          index = 0;
-          setTimeout(() => requestAnimationFrame(typeEffect), 500);
-          return;
-        }
-      }
-      lastTime = timestamp;
-    }
-
-    requestAnimationFrame(typeEffect);
+class Particle {
+  constructor() {
+    this.reset();
   }
-  requestAnimationFrame(typeEffect);
 
-  /// ==================== Burger Navbar ====================
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = Math.random() * 0.5 - 0.25;
+    this.speedY = Math.random() * 0.5 - 0.25;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+
+  draw() {
+    ctx.fillStyle = 'rgba(0, 217, 255, 0.6)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animateParticles);
+}
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initParticles();
+}
+
+resizeCanvas();
+animateParticles();
+window.addEventListener('resize', resizeCanvas);
+
+
+// === TYPING EFFECT ===
+const typingEl = document.getElementById('typing');
+const typingText = "Junior Web Developer";
+let typingIndex = 0;
+let isDeleting = false;
+let typingTimeout;
+
+function typeEffect() {
+  clearTimeout(typingTimeout);
+
+  if (!isDeleting && typingIndex <= typingText.length) {
+    typingEl.textContent = typingText.slice(0, typingIndex);
+    typingEl.style.width = `${typingIndex}ch`;
+    typingIndex++;
+    typingTimeout = setTimeout(typeEffect, 100);
+  } else if (isDeleting && typingIndex >= 0) {
+    typingEl.textContent = typingText.slice(0, typingIndex);
+    typingEl.style.width = `${typingIndex}ch`;
+    typingIndex--;
+    typingTimeout = setTimeout(typeEffect, 60);
+  } else if (!isDeleting && typingIndex > typingText.length) {
+    isDeleting = true;
+    typingTimeout = setTimeout(typeEffect, 1500);
+  } else if (isDeleting && typingIndex < 0) {
+    isDeleting = false;
+    typingTimeout = setTimeout(typeEffect, 500);
+  }
+}
+
+typeEffect();
+
+
+// === BURGER MENU TOGGLE ===
 const burger = document.querySelector('.burger');
-const nav = document.querySelector('.nav-links');
+const navLinks = document.querySelector('.nav-links');
 const overlay = document.querySelector('.overlay');
 
-if (burger && nav && overlay) {
-  const toggleNavbar = () => {
-    nav.classList.toggle('active');
-    burger.classList.toggle('toggle');
-    overlay.classList.toggle('active');
-  };
+function toggleMenu() {
+  burger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
 
-  // Klik burger atau overlay
-  burger.addEventListener('click', toggleNavbar);
-  overlay.addEventListener('click', toggleNavbar);
+burger.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
+document.querySelectorAll('.nav-links a').forEach(link =>
+  link.addEventListener('click', toggleMenu)
+);
 
-  // Tambahkan event ke semua link di nav
-  const navLinks = document.querySelectorAll('.nav-links a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      // Hanya tutup menu jika sedang aktif
-      if (nav.classList.contains('active')) {
-        toggleNavbar();
+
+// === SWIPER INITIALIZATION ===
+new Swiper('.mySwiper', {
+  loop: true,
+  slidesPerView: 5,
+  spaceBetween: 20,
+  autoplay: {
+    delay: 1500,
+    disableOnInteraction: false,
+  },
+  breakpoints: {
+    320: { slidesPerView: 2 },
+    768: { slidesPerView: 4 },
+    992: { slidesPerView: 5 },
+  },
+});
+
+
+// === CUSTOM CURSOR FOLLOW ===
+const cursor = document.querySelector('.cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = `${e.clientX}px`;
+  cursor.style.top = `${e.clientY}px`;
+});
+
+
+// === NAVBAR SCROLL EFFECT ===
+const navbar = document.querySelector('.navbar');
+const navLinksAll = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+let isScrolling = false;
+
+window.addEventListener('scroll', () => {
+  if (!isScrolling) navbar.classList.add('scrolled');
+  isScrolling = true;
+
+  clearTimeout(window.scrollEndTimer);
+  window.scrollEndTimer = setTimeout(() => {
+    isScrolling = false;
+    updateNavbar();
+  }, 120);
+});
+
+function getCurrentSection() {
+  for (const section of sections) {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 180 && rect.bottom >= 180) return section;
+  }
+  return null;
+}
+
+function updateNavbar() {
+  const current = getCurrentSection();
+  if (current && !isScrolling) {
+    const rect = current.getBoundingClientRect();
+    if (rect.top <= 180 && rect.bottom >= 180) {
+      navbar.classList.remove('scrolled');
+    }
+  }
+}
+
+navLinksAll.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href').substring(1);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const offsetTop = target.offsetTop - 100;
+    navbar.classList.add('scrolled');
+
+    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+
+    navLinksAll.forEach(l => l.classList.remove('scroll-active'));
+    link.classList.add('scroll-active');
+
+    const checkArrival = setInterval(() => {
+      const rect = target.getBoundingClientRect();
+      if (Math.abs(rect.top - 100) < 50) {
+        navbar.classList.remove('scrolled');
+        clearInterval(checkArrival);
       }
-    });
+    }, 60);
+
+    setTimeout(() => link.classList.remove('scroll-active'), 1200);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(updateNavbar, 300);
+});
+
+
+// === ABOUT IMAGE TILT ON MOUSE MOVE ===
+const aboutImg = document.querySelector('.about-img img');
+
+if (aboutImg) {
+  aboutImg.addEventListener('mousemove', e => {
+    const rect = aboutImg.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 4;
+    const centerY = rect.height / 4;
+
+    const rotateX = (y - centerY) / 15;
+    const rotateY = (centerX - x) / 15;
+
+    aboutImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    aboutImg.style.transition = 'none';
+  });
+
+  aboutImg.addEventListener('mouseleave', () => {
+    aboutImg.style.transform = '';
+    aboutImg.style.transition = 'all 0.9s ease';
   });
 }
 
-  // ==================== Swiper ====================
-  const swiper = new Swiper('.mySwiper', {
-    loop: true,
-    slidesPerView: 5,
-    spaceBetween: 30,
-    autoplay: { delay: 1000, disableOnInteraction: false },
-    speed: 800,
-    grabCursor: true,
-    breakpoints: {
-      320: { slidesPerView: 2, spaceBetween: 10 },
-      480: { slidesPerView: 3, spaceBetween: 20 },
-      768: { slidesPerView: 4, spaceBetween: 25 },
-      992: { slidesPerView: 5, spaceBetween: 30 },
-      1200: { slidesPerView: 6, spaceBetween: 40 }
-    }
-  });
 
-  window.addEventListener('resize', () => swiper.update());
+// === LENIS SMOOTH SCROLL ===
+const lenis = new Lenis({
+  duration: 1.4,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smooth: true,
+  mouseMultiplier: 1.2,
+});
 
-  // ==================== Navbar Logo Scroll ====================
-  const navbar = document.getElementById('navbar');
-  const navbarLogo = document.getElementById('navbar-logo');
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
 
-  if (navbar && navbarLogo) {
-    const transparentSrc = navbarLogo.dataset.transparentLogo;
-    const scrolledSrc = navbarLogo.dataset.scrolledLogo;
+requestAnimationFrame(raf);
+lenis.on('scroll', () => AOS.refresh());
 
-    navbar.classList.add('navbar-transparent');
-    navbarLogo.src = transparentSrc;
+// Fungsi untuk menutup menu mobile & overlay
+function closeMobileMenu() {
+  burger.classList.remove('active');
+  navLinks.classList.remove('active');
+  overlay.classList.remove('active');
+}
 
-    const scrollObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          navbar.classList.remove('navbar-transparent');
-          navbar.classList.add('navbar-scrolled');
-          navbarLogo.src = scrolledSrc;
-        } else {
-          navbar.classList.remove('navbar-scrolled');
-          navbar.classList.add('navbar-transparent');
-          navbarLogo.src = transparentSrc;
-        }
-      },
-      { threshold: 0 }
-    );
+// Navigasi dari navbar
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
 
-    const topSentinel = document.createElement('div');
-    topSentinel.style.position = 'absolute';
-    topSentinel.style.top = '50px';
-    document.body.prepend(topSentinel);
-    scrollObserver.observe(topSentinel);
-  }
+    // Tutup menu mobile SEBELUM scroll
+    closeMobileMenu();
 
-  // ==================== Skill Bar Animation ====================
-  const skills = document.querySelectorAll(".fill");
-
-  const skillObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const fill = entry.target;
-        fill.style.width = fill.getAttribute("data-width");
-        observer.unobserve(fill); // stop observing setelah animasi
+    // Scroll ke target
+    lenis.scrollTo(target, {
+      offset: -100,
+      duration: 1.4,
+      // Callback saat scroll selesai
+      onComplete: () => {
+        // Pastikan overlay benar-benar hilang
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 300);
       }
     });
-  }, { threshold: 0.3 });
-
-  skills.forEach(skill => skillObserver.observe(skill));
-
-  // ==================== Cursor ====================
-  const cursor = document.querySelector(".cursor");
-
-  let mouseX = 0;
-  let mouseY = 0;
-  let cursorX = 0;
-  let cursorY = 0;
-  let delayFactor = 0.10; // smooth delay
-
-  document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    delayFactor = 0.10; // reset delay saat mouse baru bergerak
-
-    // ==== DETEKSI WARNA LATAR ====
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    if (!el) return;
-
-    const bg = window.getComputedStyle(el).backgroundColor;
-    const color = window.getComputedStyle(el).color;
-
-    // Hitung tingkat kecerahan (brightness)
-    const brightness = (color) => {
-      const rgb = color.match(/\d+/g)?.map(Number);
-      return rgb ? (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000 : 255;
-    };
-
-    const bgBright = brightness(bg);
-    const textBright = brightness(color);
-
-    // Ganti warna cursor tergantung area
-    if (bgBright > 180) {
-      cursor.classList.add("light");
-      cursor.classList.remove("dark");
-    } else if (textBright < 100) {
-      cursor.classList.add("dark");
-      cursor.classList.remove("light");
-    } else {
-      cursor.classList.remove("light", "dark");
-    }
   });
-
-  function animate() {
-    const dx = mouseX - cursorX;
-    const dy = mouseY - cursorY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    const speed = Math.min(Math.max(distance / 100, 0.1), 0.4);
-
-    cursorX += dx * delayFactor;
-    cursorY += dy * delayFactor;
-
-    cursor.style.left = cursorX + "px";
-    cursor.style.top = cursorY + "px";
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
 });
+
+// === SKILL BAR ANIMATION ===
+const skillBars = document.querySelectorAll('.skill .fill');
+
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const fill = entry.target;
+    const width = fill.getAttribute('data-width');
+    if (!width) return;
+
+    // Animasi lebar bar
+    setTimeout(() => {
+      fill.style.width = width;
+    }, 100);
+
+    // Tampilkan persentase
+    const percentage = fill.closest('.skill').querySelector('.percentage');
+    setTimeout(() => {
+      percentage.style.opacity = '1';
+      percentage.style.transform = 'translateY(0)';
+    }, 600);
+
+    skillObserver.unobserve(fill);
+  });
+}, { threshold: 0.6 });
+
+skillBars.forEach(bar => skillObserver.observe(bar));
