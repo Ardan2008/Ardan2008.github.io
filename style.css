@@ -269,7 +269,6 @@ h2 {
   box-shadow: 0 0 20px #00ff9d;
 }
 
-/* Tambah efek glow di tengah saat aktif */
 .burger.active::before {
   content: '';
   position: absolute;
@@ -286,7 +285,7 @@ h2 {
   100% { transform: scale(1.6); opacity: 0; }
 }
 
-/* === OVERLAY + PARTIKEL BINTANG PREMIUM (TIDAK MEMANJANG!) === */
+/* === OVERLAY === */
 .overlay {
   position: fixed;
   top: 0; left: 0;
@@ -309,7 +308,6 @@ h2 {
   pointer-events: all;
 }
 
-/* Partikel bintang yang bagus & tidak berulang-ulang */
 .overlay::before {
   content: '';
   position: absolute;
@@ -336,7 +334,6 @@ h2 {
   100% { transform: translate(-50px, -50px) rotate(10deg); }
 }
 
-/* Tambahan glow halus di tengah (opsional, tapi bikin "wow") */
 .overlay.active::after {
   content: '';
   position: absolute;
@@ -357,7 +354,6 @@ h2 {
 }
 
 /* === HERO SECTION === */
-
 .hero {
   min-height: 100vh;
   display: flex;
