@@ -209,49 +209,151 @@ h2 {
 
 /* === MOBILE MENU (BURGER) === */
 
+/* === BURGER MENU – LEVEL GOD MODE === */
 .burger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
+  position: relative;
   z-index: 1001;
+  padding: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+  transition: all 0.4s ease;
 }
 
+.burger:hover {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: #00d4ff;
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+  transform: scale(1.1);
+}
+
+/* Garis-garis burger */
 .burger span {
-  width: 25px;
+  position: relative;
+  width: 28px;
   height: 3px;
-  background: white;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  background: #00d4ff;
+  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
 }
 
+.burger span:nth-child(1) { top: -8px; }
+.burger span:nth-child(2) { opacity: 1; }
+.burger span:nth-child(3) { top: 8px; }
+
+/* Efek jadi X yang super smooth & glowing */
 .burger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(8px, 8px);
+  background: #ff00ff;
+  box-shadow: 0 0 20px #ff00ff;
 }
 
 .burger.active span:nth-child(2) {
   opacity: 0;
+  transform: translateX(20px);
 }
 
 .burger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
+  transform: rotate(-45deg) translate(10px, -10px);
+  background: #00ff9d;
+  box-shadow: 0 0 20px #00ff9d;
 }
 
+/* Tambah efek glow di tengah saat aktif */
+.burger.active::before {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* === OVERLAY + PARTIKEL BINTANG PREMIUM (TIDAK MEMANJANG!) === */
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.08), rgba(0, 0, 0, 0.97));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
   z-index: 998;
+  overflow: hidden;
 }
 
 .overlay.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
+}
+
+/* Partikel bintang yang bagus & tidak berulang-ulang */
+.overlay::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, #00d4ff, transparent 50%),
+    radial-gradient(1.5px 1.5px at 80% 70%, #ff00ff, transparent 50%),
+    radial-gradient(1px 1px at 40% 80%, #00ff9d, transparent 50%),
+    radial-gradient(2px 2px at 90% 20%, #00d4ff, transparent 50%),
+    radial-gradient(1px 1px at 60% 10%, #ff00ff, transparent 50%),
+    radial-gradient(1.5px 1.5px at 10% 90%, #00ff9d, transparent 50%),
+    radial-gradient(1px 1px at 70% 40%, #00d4ff, transparent 50%);
+  background-repeat: no-repeat;
+  background-size: 200px 200px, 300px 300px, 250px 250px, 400px 400px, 350px 350px, 280px 280px, 320px 320px;
+  animation: starryNight 60s linear infinite;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes starryNight {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-50px, -50px) rotate(10deg); }
+}
+
+/* Tambahan glow halus di tengah (opsional, tapi bikin "wow") */
+.overlay.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 60%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
 }
 
 /* === HERO SECTION === */
@@ -271,34 +373,68 @@ h2 {
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);   
   line-height: 1.2;
   margin-bottom: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  font-family: 'Lexend', 'Satoshi', 'Inter', sans-serif;
 }
 
 .hero h1 strong {
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, 
+    #00d4ff 0%,      
+    #7c3aed 45%,     
+    #ec4899 100%     
+  );
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* Animasi gradient pelan & smooth */
+@keyframes gradientShift {
+  0%, 100%   { background-position: 0% 50%; }
+  50%        { background-position: 100% 50%; }
+}
+
+.hero h1 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease forwards 0.4s;
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .typing {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--primary);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #00d4ff;
   display: inline-block;
-  overflow: hidden;
+  padding: 12px 22px;
+  border: 3px solid;
+  border-radius: 25px;
+  border-image: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff9d, #00d4ff) 1;
+  animation: borderRotate 6s linear infinite, blink 0.75s step-end infinite;
   white-space: nowrap;
-  width: 0;
-  min-width: 0;
-  border-right: 3px solid transparent;
-  animation: blink 0.7s step-end infinite;
+  overflow: hidden;
+  border-right: 4px solid #00d4ff;
+  letter-spacing: 1px;
+  font-family: 'Lexend', sans-serif;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+@keyframes borderRotate {
+  0%   { border-image-source: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff9d, #00d4ff); }
+  100% { border-image-source: linear-gradient(45deg, #00ff9d, #00d4ff, #ff00ff, #00d4ff); }
 }
 
 @keyframes blink {
-  0%, 100% { border-color: var(--primary); }
-  50% { border-color: transparent; }
+  50% { border-right-color: transparent; }
 }
 
 .desc {
@@ -1197,6 +1333,92 @@ h2 {
   .btn-view:active,
   .btn-github:active {
     transform: translateY(-2px) !important;
+  }
+}
+
+/* ACHIVEMENTS */
+.achievements {
+  padding: 60px 0;
+  position: relative;
+}
+
+.achievements h2 {
+  text-align: center;
+  margin-bottom: 60px;
+  font-size: 2.8rem;
+}
+
+.achievements h2 span {
+  color: #00d4ff;
+}
+
+.achievements-content {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.achievements-text {
+  flex: 1;
+  min-width: 300px;
+  color: #ccc;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  max-width: 500px;
+}
+
+.achievements-text p {
+  margin: 0;
+}
+
+/* Slider Sertifikat */
+.achievements-slider {
+  flex: 1;
+  min-width: 320px;
+  max-width: 600px;
+  position: relative;
+}
+
+.achievementsSwiper {
+  padding: 20px 0;
+}
+
+.certificate-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease;
+  padding: 15px;
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px) scale(1);
+}
+
+.certificate-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .achievements-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 50px;
+  }
+  
+  .achievements-text {
+    font-size: 1.2rem;
+  }
+  
+  .achievements h2 {
+    font-size: 2.4rem;
   }
 }
 

@@ -57,55 +57,87 @@ animateParticles();
 window.addEventListener('resize', resizeCanvas);
 
 
-// === TYPING EFFECT ===
-const typingEl = document.getElementById('typing');
-const typingText = "Junior Web Developer";
-let typingIndex = 0;
-let isDeleting = false;
-let typingTimeout;
+document.addEventListener("DOMContentLoaded", function () {
+  const typingEl = document.getElementById('typing');
+  const text = "Junior Web Developer";
+  let i = 0;
+  let isDeleting = false;
 
-function typeEffect() {
-  clearTimeout(typingTimeout);
-
-  if (!isDeleting && typingIndex <= typingText.length) {
-    typingEl.textContent = typingText.slice(0, typingIndex);
-    typingEl.style.width = `${typingIndex}ch`;
-    typingIndex++;
-    typingTimeout = setTimeout(typeEffect, 100);
-  } else if (isDeleting && typingIndex >= 0) {
-    typingEl.textContent = typingText.slice(0, typingIndex);
-    typingEl.style.width = `${typingIndex}ch`;
-    typingIndex--;
-    typingTimeout = setTimeout(typeEffect, 60);
-  } else if (!isDeleting && typingIndex > typingText.length) {
-    isDeleting = true;
-    typingTimeout = setTimeout(typeEffect, 1500);
-  } else if (isDeleting && typingIndex < 0) {
-    isDeleting = false;
-    typingTimeout = setTimeout(typeEffect, 500);
+  function typeLoop() {
+    // Mode ngetik
+    if (!isDeleting && i <= text.length) {
+      typingEl.textContent = text.substring(0, i);
+      i++;
+      setTimeout(typeLoop, 100);
+    }
+    // Jeda setelah selesai ngetik
+    else if (!isDeleting && i > text.length) {
+      setTimeout(() => {
+        isDeleting = true;
+        typeLoop();
+      }, 2000); // jeda 2 detik sebelum mulai hapus
+    }
+    // Mode hapus
+    else if (isDeleting && i >= 0) {
+      typingEl.textContent = text.substring(0, i);
+      i--;
+      setTimeout(typeLoop, 60);
+    }
+    // Selesai hapus → mulai ngetik lagi (LOOP)
+    else if (isDeleting && i < 0) {
+      isDeleting = false;
+      setTimeout(typeLoop, 500);
+    }
   }
-}
 
-typeEffect();
+  // Mulai pertama kali setelah 1 detik
+  setTimeout(typeLoop, 1000);
+});
 
-
-// === BURGER MENU TOGGLE ===
+// === BURGER MENU TOGGLE + TUTUP SAAT KLIK DI LUAR ===
 const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
 const overlay = document.querySelector('.overlay');
+const navLinks = document.querySelector('.nav-links');
 
-function toggleMenu() {
-  burger.classList.toggle('active');
-  navLinks.classList.toggle('active');
-  overlay.classList.toggle('active');
-}
+burger.addEventListener('click', function() {
+  this.classList.toggle('active');
+  
+  // Hanya aktifkan di mobile
+  if (window.innerWidth < 992) {
+    overlay.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  }
+});
 
-burger.addEventListener('click', toggleMenu);
-overlay.addEventListener('click', toggleMenu);
-document.querySelectorAll('.nav-links a').forEach(link =>
-  link.addEventListener('click', toggleMenu)
-);
+// === TUTUP MENU SAAT KLIK/TAP DI LUAR MENU ===
+overlay.addEventListener('click', function(e) {
+  // Hanya jalankan di mobile & pastikan kliknya di luar area nav-links
+  if (window.innerWidth < 992 && !navLinks.contains(e.target) && !burger.contains(e.target)) {
+    burger.classList.remove('active');
+    overlay.classList.remove('active');
+    navLinks.classList.remove('active');
+  }
+});
 
+// === TUTUP MENU SAAT KLIK LINK ===
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth < 992) {
+      burger.classList.remove('active');
+      overlay.classList.remove('active');
+      navLinks.classList.remove('active');
+    }
+  });
+});
+
+// === BONUS: Tutup otomatis saat resize dari mobile ke desktop ===
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 992) {
+    burger.classList.remove('active');
+    overlay.classList.remove('active');
+    navLinks.classList.remove('active');
+  }
+});
 
 // === SWIPER INITIALIZATION ===
 new Swiper('.mySwiper', {
@@ -301,3 +333,4 @@ const skillObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.6 });
 
 skillBars.forEach(bar => skillObserver.observe(bar));
+
